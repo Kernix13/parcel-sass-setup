@@ -1,0 +1,27 @@
+{
+  "name": "parcel-sass-setup",
+  "source": "src/index.html",
+  "version": "1.0.0",
+  "description": "Using Parcel instead of Webpack as a bundler.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kernix13/parcel-sass-setup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kernix13/parcel-sass-setup/issues"
+  },
+  "homepage": "https://github.com/Kernix13/parcel-sass-setup#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0",
+    "sass": "^1.54.8"
+  }
+}
