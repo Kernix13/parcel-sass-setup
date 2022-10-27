@@ -5,7 +5,7 @@
   "description": "Using Parcel instead of Webpack as a bundler.",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel",
+    "dev": "parcel --open",
     "build": "parcel build"
   },
   "repository": {

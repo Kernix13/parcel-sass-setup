@@ -4,3 +4,7 @@
 # Parcel related files
 dist/
 .parcel-cache/
+
+# Personal files
+webpack.md
+parcel-notes.md
