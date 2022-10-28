@@ -3,3 +3,13 @@ $bgLite: #f1f5f9;
 body {
   background-color: $bgLite;
 }
+
+.lg-img {
+  display: block;
+  width: 40rem;
+  height: auto;
+}
+
+::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}

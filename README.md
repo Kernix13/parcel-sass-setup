@@ -1,5 +1,7 @@
 # Setting up Parcel
 
+> why is npm run dev creating hasf files in my dist folder?
+
 Notes for using Parcel instead of Webpack as a bundler:
 
 1. Reduces the size of your app
@@ -26,8 +28,10 @@ Notes are from videos by:
 ## Table of Contents
 
 1. [Initial Setup](#initial-setup)
+   1. [Setup notes](#setup-notes)
 1. [CSS and JS and Images](#css-and-js-and-images)
    1. [SASS](#sass)
+   1. [Postcss and Tailwind](#postcss-and-tailwind)
    1. [JavaScript](#javascript)
    1. Images
 1. [Miscellaneous](#miscellaneous)
@@ -66,7 +70,9 @@ Then:
 1. Create a folder named `src` in the root of your project.
 1. Create `index.html` in the `src` folder.
 1. Create an `scss` folder inside `src` and inside there create `main.scss`.
+1. Create a `js` folder inside `src` and inside there create `main.js`.
 1. Add `<link rel="stylesheet" href="./scss/main.scss" />` in the `<head>` tag of the HTML file.
+1. Add `<script src="./js/main.js" defer></script>` in the `<head>` tag of the HTML file.
 1. Then add the following scripts to `package.json` for Parcel:
 
 ```json
@@ -75,6 +81,10 @@ Then:
   "build": "parcel build src/index.html"
 },
 ```
+
+### Setup notes
+
+**NOTE #1**: In `package.json`, you may also see people use `prod` instead of `build` - you can name them whatever you want
 
 For the `dev` script add the package name `parcel` and the filename for the entry point, `src/index.html` in this case. Change that if the location and/or filename is different. Use `npm run dev`.
 
@@ -108,7 +118,7 @@ From the _Parcel Get started_ page, here is the `package.json` file:
 
 So here you can change the location and name of the filename and omit that parameter from the scripts by adding the `source` variable: `"source": "src/index.html",`. That works.
 
-NOTE: You also do not need to run the sass command `sass watch src/scss:dist/css`. Parcel takes care of all that.
+**NOTE #2**: You also do not need to run the sass command `sass watch src/scss:dist/css`. Parcel takes care of all that.
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
@@ -136,6 +146,37 @@ import "./../scss/main.scss";
 
 > Parcel supports Sass files automatically using the `@parcel/transformer-sass` plugin. When a .sass or .scss file is detected, it will be installed into your project automatically.
 
+### Postcss and Tailwind
+
+While Parcel supports equivalent functionality to many common PostCSS plugins such as `autoprefixer` and `postcss-preset-env` out of the box as described above, PostCSS is useful for more custom CSS transformations such as non-standard syntax additions. It is also used by popular CSS frameworks such as Tailwind.
+
+From parcel's docs:
+
+> You can use PostCSS with Parcel by creating a configuration file using one of these names: `.postcssrc`, `.postcssrc.json`, `.postcssrc.js`, or `postcss.config.js`
+
+- To plugins used by `postcss` - `npm instal autoprefixer` - then to use `postcss` you need to add a file in the root named `.postcssrc` and add the plugins
+
+```json
+{
+  "plugins": {
+    "autoprefixer": true,
+    "tailwindcss": true
+  }
+}
+```
+
+- Based on your configured browser targets, Parcel automatically adds vendor prefixed fallbacks for many CSS
+- if your CSS source code (or more likely a library) includes unnecessary vendor prefixes, Parcel CSS will automatically remove them to reduce bundle sizes
+- For tailwind though you will also need `tailwind.config.js`
+
+Other useful [Postcss plugins](https://github.com/postcss/postcss#plugins):
+
+- `postcss-preset-env` allows you to use future CSS features today
+- `postcss-nested` unwraps nested rules the way Sass does
+- `cssnano` is a modular CSS minifier
+
+Check out [Postcss on Parcel](https://parceljs.org/languages/css/#postcss)
+
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
 ### JavaScript
@@ -155,7 +196,13 @@ helper();
 
 So Parcel does all the stuff Webpack does by running `npm run dev` without the `webpack.config.js` file and `package.json` scripts referencing Webpack.
 
+- make sure to have lots of exports and imports to test the bundling
+
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
+### Images
+
+- nothing here yet
 
 ## Miscellaneous
 
@@ -172,6 +219,11 @@ Delete it and then rerun `npm run dev` and it will be rebuilt but check the file
 **NOTE 2**: `async / await` is not supported in Parcel by default - to be able to use those `import "babel-polyfill"` into any file that is using async/await or importing a function that uses them. PArcel will add it to your dependencies when you save the file - no NPM command needed.
 
 **File structure example**: LATER
+
+> how do you clean the dist folder with parcel
+
+- https://stackoverflow.com/questions/56506191/how-to-wipe-dist-directory-before-a-build-with-parcel
+- There's a plugin for that `parcel-plugin-clean-dist` or try `parcel-reporter-clean-dist`
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
