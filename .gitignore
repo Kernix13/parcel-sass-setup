@@ -5,7 +5,9 @@
 dist/
 .parcel-cache/
 
+# Images
+src/images/GitHubBanner750.3.jpg
+
 # Personal files
-webpack.md
 parcel-notes.md
 SASS_NOTES.md

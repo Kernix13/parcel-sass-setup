@@ -1,6 +1,6 @@
 # Setting up Parcel
 
-> why is npm run dev creating hasf files in my dist folder?
+> why is npm run dev creating hash files in my dist folder?
 
 Notes for using Parcel instead of Webpack as a bundler:
 
@@ -88,7 +88,7 @@ Then:
 
 For the `dev` script add the package name `parcel` and the filename for the entry point, `src/index.html` in this case. Change that if the location and/or filename is different. Use `npm run dev`.
 
-Use `npm run dev` to setup your dev environment, minify your code, set up a localhost at `http://localhost:1234` and create a build folder called `dist`.
+Use `npm run dev` to set up your dev environment, minify your code, set up a localhost at `http://localhost:1234` and create a build folder called `dist`.
 
 Use the `build` script for when you deploy to production and to minify everything - add the same as for `dev` but add the `build` keyword. `npm run build`.
 
@@ -216,7 +216,7 @@ Delete it and then rerun `npm run dev` and it will be rebuilt but check the file
 
 **NOTE**: `export` any functions from a file that you need then `import` it into the files that need them.
 
-**NOTE 2**: `async / await` is not supported in Parcel by default - to be able to use those `import "babel-polyfill"` into any file that is using async/await or importing a function that uses them. PArcel will add it to your dependencies when you save the file - no NPM command needed.
+**NOTE 2**: `async / await` is not supported in Parcel by default - to be able to use those `import "babel-polyfill"` into any file that is using async/await or importing a function that uses them. Parcel will add it to your dependencies when you save the file - no NPM command needed.
 
 **File structure example**: LATER
 
@@ -224,6 +224,14 @@ Delete it and then rerun `npm run dev` and it will be rebuilt but check the file
 
 - https://stackoverflow.com/questions/56506191/how-to-wipe-dist-directory-before-a-build-with-parcel
 - There's a plugin for that `parcel-plugin-clean-dist` or try `parcel-reporter-clean-dist`
+
+### Babel
+
+[Babel Getting Started](https://babeljs.io/docs/en/index.html) and [Parcel/Babel](https://parceljs.org/languages/javascript/#babel)
+
+- Babel with Parcel uses the env preset, `@babel/preset-env` - 
+
+> What javascript features does parcel not support? What babel plugins are needed?
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 

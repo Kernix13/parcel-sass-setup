@@ -1,13 +1,27 @@
-$bgLite: #f1f5f9;
+$bgLite: #f5f1f9;
 
 body {
   background-color: $bgLite;
+  margin: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1.25rem;
+}
+
+.container {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1100px;
 }
 
 .lg-img {
   display: block;
-  width: 40rem;
+  width: 30rem;
   height: auto;
+  margin-bottom: 2rem;
 }
 
 ::placeholder {
