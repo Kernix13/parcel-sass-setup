@@ -39,6 +39,8 @@ npm install --save-dev parcel
 
 - run `npm run dev` to run the dev server and `npm run build` to build the production files
 
+<br>
+
 **From video notes**:
 
 ```bash
