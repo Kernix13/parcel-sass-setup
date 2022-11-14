@@ -3,7 +3,7 @@
   "source": "src/index.html",
   "version": "1.0.0",
   "description": "Using Parcel instead of Webpack as a bundler.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "parcel --open",
     "build": "parcel build"
