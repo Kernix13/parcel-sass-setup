@@ -4,7 +4,7 @@ import { msg } from './utils'
 console.log(msg.toUpperCase());
 
 const Name = {
-  firstName: "Jim"
+  firstName: "James"
 }
 
 console.log(Name.firstName);

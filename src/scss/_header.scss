@@ -1,0 +1,60 @@
+@use 'variables';
+
+header {
+  background-color: variables.$headerBgClr;
+  color: variables.$headerClr;
+
+  .header-container {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  a {
+    color: variables.$headerClr;
+    text-decoration: none;
+    font-size: 1.125rem;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+      color: variables.$white;
+    }
+  }
+
+  nav {
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    li {
+      margin-left: 1rem;
+    }
+
+  }
+
+  .showcase-content {
+    background-color: variables.$showcaseBgClr;
+
+
+    .showcase-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div {
+        padding-right: 2rem;
+      }
+    }
+  }
+}

@@ -1,50 +1,56 @@
 # SASS Notes
 
-Links:
+Links
 
 - [SASS-LANG](https://sass-lang.com/)
 - [CSS Tricks: Mixin to Manage Breakpoints](https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/)
 - [Bulma: Responsive Mixins](https://bulma.io/documentation/utilities/responsive-mixins/)
 
-# LearnWebCode
+<div id="back-to-top"></div>
 
-`LearnWebCode/docs/LWC-CSS.docx` - Section 19 Sass, Lesson 65 geting started..., Lesson 66 Sass basics..., Lesson 67 Sass cont.
+## Table of Contents
+
+1. [NPM Packages](#npm-packages)
+1. [General Notes](#general-notes)
+1. [Variables](#variables)
+1. [Nesting](#nesting)
+1. [Modules](#modules)
+   1. [Namespaces and folders](#namespaces-and-folders)
+1. [Inheritance and Extends](#inheritance-and-extends)
+1. [Mixins](#mixins)
+   1. [at content](#at-content)
+1. [Functions](#functions)
+1. [Operators](#operators)
+1. [Conditionals](#conditionals)
+1. [Sass Maps](#sass-maps)
 
 
-**Variables**: define a color scheme for the page and apply to all links on the page - at the top of the scss file undo `$primaryColor: #ec7705;`
+## NPM Packages
 
-**Nesting**: `nav` > `ul` > `li` > `a` all in `header.site-header` - css can not nest rules within rules - nesting has 2 primary benefits:
+- [package.json](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
+- [scripts](https://docs.npmjs.com/cli/v8/using-npm/scripts)
+- [npm-run-script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
+- [Using Npm Scripts as a Build Tool](https://deliciousbrains.com/npm-build-script/): This is the best one I found for the basics
 
-1. helps you stay organized conceptually like in the html code,
-2. it saves time typing
+```sh
+npm init -y
+npm install sass --save-dev
+sass src/scss/style.scss dist/css/style.csss
+npm run scss
+```
 
-**inheritance / @extend**: style btn-a and btn-b - can use ALL of btn-a stying for btn-b using `@extend btn-a` - `@extend` inherits the properties of whatever it references
+That installs SASS as a dev dependency and creates the `dist` folder with the CSS stylesheet, but it does not watch and update your changes.
 
-**splitting up code into smaller files / @import**: incredibly organized css code like any code related to the header is to have it's own file 
+- npm package, extensions don't work for this, setting it up with Parcel
 
-- create a file called `_header.scss`, and in the same spot in the old file add `@import 'header';` 
-- there will be no change to the output in the css file - it helps you stay organized: `_header.scss` then `@import 'header';`
+```bash
+npm install -D sass
+sass --watchscss:css
+```
 
-**another sass feature: functions**: `lighten()` and many more
+## General Notes
 
-**mixins**: alternate button to have a gradient bg - code to create a gradient - mixins use the 2 colors then output all the code - `@mixin name( ) { }` - don't hardcode your color values in the mixin b\c you want it to be as flexible as possible - look at the code but in the button rule use `@include` to call the mixin
-- `_mixins.scss` - then use `@import`
-
-**@content** - ??? something with media queries I think - see notes for `Lesson 67 Sass cont`
-
-**operators**: mathematical operators - you don't want to have a value for something and not remember how you got to that value 
-
-- example: `100px + 50px`, or for division and mult which you need to wrap in parens like `(500px / 2)` or `(300px * 2)` - I guess `calc()` wasn't a thing back then
-
-> use @forward instead of @import
-
-## Sass basics
-
-> I think these notes are also from LearnWebCode
-
-Basic notes on working with SASS files and syntax.
-
-Syntax:
+Terms:
 
 |           |          |          |          |
 | :-------- | :------- | :------- | :------- |
@@ -53,9 +59,21 @@ Syntax:
 | @else     | @forward | @else if | @content |
 | map-get() | #{$name} | -        | -        |
 
+Check out [Sass Guidelines](https://sass-guidelin.es/) for project folder guidelines:
+
+- `base/`
+- `components/`
+- `layout/`
+- `pages/`
+- `themes/`
+- `abstracts/`
+- `vendors/`
+
 ## Variables
 
-- unlike with CSS that has `var()` and `--color`, you just use `$varName `
+- Unlike with CSS that has `var()` and `--color`, you just use `$varName`
+- In CSS variables are called Custom Properties but it's nicer in SASS
+- All variables are prefixed with `$`
 
 ```scss
 // Declaration
@@ -71,7 +89,10 @@ $textClr: #333;
 
 ## Nesting
 
-- See below but as an example use the `&` symbol (`&:hover` or `&::before`) for pseudo classes and elements
+- CSS can not nest rules within rules (`nav` > `ul` > `li` > `a`) 
+- Nesting has 2 primary benefits: 1) helps you stay organized conceptually like in the html code, 2) it saves time typing
+- See below as an example for using the `&` symbol (`&:hover` or `&::before`) for pseudo classes and elements - you use `&` as shorthand for the parent tag or class
+- Instead of `nav ul`, `nav li`, `nav a`, you can nest `li`, `a`, `a:hover` withing a `nav` rule 
 
 ```scss
 * {
@@ -85,69 +106,19 @@ $textClr: #333;
 }
 ```
 
-## Mixins
+## Modules
 
-- Similar to a function in JS
-- use `@mixin mixinName {}` to declare it, and use `@include mixinName()`
-- make sure to use parentheses `()` to call the mixin
-- you can call it in the file the mixin is declared or in any file that that imports the file that has the mixin declaration
-- any name for your param is okay but prefix it with `$`
-- NOTE: You also have to declare something or you get an error - defaults not assumed
-- you can add as many parameters as you want/need
-
-```scss
-// Declaration
-@mixin flexCenter($direction) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: center;
-  align-items: center;
-}
-
-// Rules
-@include flexCenter(column);
-```
-
-## Customixing your mixins
-
-- change the flex mixin above to be column instead of row
-- you can add parentheses to the mixin name and add parameters that can be changed each time you use it
-
-## Extends
-
-- inheriting styles from one declaration to another -
-- use `@extends name` where `name` is the element or class you want to inherit
-
-```scss
-.contact {
-  @extend header;
-}
-```
-
-### Calc
-
-- his example didn't work for me
-
-### Separate files
-
-- create `_header.scss`, paste header styes into there, then back in your main file use `@import "./header";`
-- don't add the extension `.scss` - it's not needed plus it throws an error
-- also try `_variables.scss` and do the same in the main scss file
-- abstracts -> file names: fonts, colors, mixins, breakpoints, fuctions
-
-# Kevin Powell 1
-
-- mentions not using `@import` and instead use `@use` and `@forward`
-- has to use an npm package because extensions don't work for this and setting it up with Parcel
-
-```bash
-npm install -D sass
-sass --watchscss:css
-```
-
-- Add you font vars in your font file - he says you should not use `@import` anymore because it is deprecated
-- but everything becomes namespaced to prevent problems with overwriting variables 
-- here is both an import and use example:
+- Modules are for splitting up code into smaller files
+- Organized code should have it's own file, similar to JavaScript
+- Break your large CSS file into different files
+- You need an underscore (`_`) as a prefix in the name so it won't be compiled 
+- Then just import it into another file
+- For example, cut all your header specific styles, create a file called `_header.scss`, and in the same spot in the old file add `@use 'header';` 
+- There will be no change to the output in the css file
+- **NOTE**: don't add `.scss` - it's not needed plus it throws an error
+- **Abstracts** -> file names: __variables_, _fonts_, _colors_, _mixins_, _components_, _breakpoints_, _fuctions_
+- Don't use `@import` and instead use `@use` and `@forward`
+- Everything must ve namespaced to prevent problems with overwriting variables :
 
 ```scss
 // Old way
@@ -178,26 +149,23 @@ body {
 // or use * to tak away the namespace:
 ```
 
-But you have to bring them into every file that will use them. Something about abstracts not needing to be brought in your main file -
+> But you have to bring them into every file that will use them. Something about abstracts not needing to be brought in your main file
 
-- to get around that in any folder create `_index.scss` -
-- use - you bring it into that file to use - use `@forward` to bring it into the file to send it back out -
+- To get around that, in any folder create `_index.scss`
+- Use `@forward` to bring in your modules, then use `@use` to bring in `_index`
 
 ```scss
 // add these in _index.scss
 @forward "./abstracts/font";
 @forward "./abstracts/colors";
-// then in a file just do
+
+// then in any file just add
 @use "./abstracts";
 ```
 
-## Partials
+### Namespaces and folders
 
-What are partials?
-
-> A partial is a Sass file named with a leading underscore. You might name it something like `_partial.scss`. The underscore lets Sass know that the file is only a partial file and that it should not be generated into a CSS file. Sass partials are used with the @use rule
-
-- Stop using `@import` with Sass -> Using `@use` and `@forward` to get your partials working
+- Using `@use` and `@forward` to get your partials working but you must use a name space
 - Suggested folder names:
 - abstracts: not actually complied into CSS: mixins, maps, breakpoints,
 - base: general global styles
@@ -207,24 +175,94 @@ What are partials?
   - `_article.scss`
   - `_buttons.scss`
   - also `_index`, `_label`, and `_nav.scss`
-- layouts
+- layouts: 
 - utilities: `_container.scss`, screen-reader only
 
-Check out [Sass Guidelines](https://sass-guidelin.es/):
+## Inheritance and Extends
 
-- `base/`
-- `components/`
-- `layout/`
-- `pages/`
-- `themes/`
-- `abstracts/`
-- `vendors/`
+> For base styles and then extend them to more specific classes 
+
+- `@extends` is for nheriting styles from one declaration to another
+- Example: `btn-a`, and `btn-b` can use ALL of `btn-a` stying using `@extend btn-a` - `@extend` inherits the properties of whatever it references
+- Common for things like buttons where you use base styles to style all your buttons, or cards, or other common components
+- use `@extends name` where `name` is the element or class you want to inherit
+
+```scss
+.contact {
+  @extend header;
+}
+```
+
+## Mixins
+
+- They are similar to a function in JS
+- Mixins can take parameters like functions - you need to use `@mixin` in conjuction with `@include`
+- `@mixin name( ) { }` - don't hardcode your values in the mixin because you want it to be as flexible as possible
+- Use `@include` to call the mixin
+
+```scss
+@mixin nameOfMixin($optionalParam) {
+  // CSS properties here
+}
+@mixin otherName {
+  // CSS properties here
+}
+.box { @include nameOfMixin(margin(30px)); }
+nav ul { @include otherName; }
+```
+
+- Use `@mixin mixinName {}` to declare it, and use `@include mixinName()`
+- Make sure to use parentheses `()` to call the mixin
+- You can call it in the file the mixin is declared or in any file that imports the file that has the mixin declaration
+- Any name for your param is okay but prefix it with `$`
+- **NOTE**: You also have to declare something or you get an error - defaults not assumed
+- You can add as many parameters as you want/need
+
+```scss
+// Declaration
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+// Rules
+@include flexCenter(column);
+```
+
+### at content
+
+- `@content`: Something with media queries I think - see notes for `Lesson 67 Sass cont`
+
+## Functions 
+
+- Example: `lighten()` and there are many more
+- Functions and mixins allow you to make blocks of CSS which you can run wherever you want
+- Functions are similar to mixins but they actually return something
+- Also with functions you don't need `@include`
+
+## Operators
+
+> Skip for now 
+
+- Mathematical operators - you don't want to have a value for something and not remember how you got to that value 
+- Using `/ * - +` in your values
+- Example: `100px + 50px`, or for division and mult which you need to wrap in parens like `(500px / 2)` or `(300px * 2)` - I guess `calc()` wasn't a thing back then
+
+## Conditionals
+
+- Logic via if/else statements 
+- Example is to use them in a mixin with parameters 
+- `@if`, `@else`, and `@else if` 
 
 ## Sass Maps
 
-- custom props and utility classes
-- example, shades is actually a map
-- what is interpolation? `#{$name}`
+- Custom props and utility classes
+- Example: `shade` is actually a map
+- Traversy says he never uses source maps so he disables them from being created
+
+>  What is interpolation? `#{$name}`
 
 ```scss
 :root {
@@ -267,73 +305,3 @@ $breakpoints: (
   }
 }
 ```
-..........................................................
-
-# Traversy Video
-
-From [Sass Crash Course](https://youtu.be/nu5mdN2JIwM) and [Codepen](https://codepen.io/bradtraversy/pen/ExjmGdY?editors=1100).
-
-## Intro
-
-- CSS PreProcessor
-- .scss files are compiled to .css
-
-### Variables intro
-
-- in CSS variables are called Custom Properties but it's nicer in SASS
-- prefixed with `$`
-
-### Nesting intro
-
-- instead of `nav ul`, `nav li`, `nav a`, you can nest `li`, `a`, `a:hover` withing a `nav` rule -
-
-### Modules intro
-
-- break into different files - organization - you need an underscore in the name so they won't be compiled -just import it into another file
-
-### Mixins and functions intro
-
-- mixins can take parameters like functions - you need to use `@mixin` in conjuction with `@include`
-- functions actually returns something - you don't need `@include`
-
-### inheritance intro
-
-- common for things like buttons where you use base styles to styles all your buttons, or cards, or whatevs - use `@extend` for that
-
-### operators intor
-
-- using `/ * - +` in your values
-
-### conditionals intro
-
-- `@if`, `@else`, and `@else if` -
-
-## Landing Page Project
-
-- had to go to lorem picsum
-- create a folder called `scss` and inside `style.scss`
-- create some styles then we need a compiler:
-
-**NPM module**:
-
-- he wants to use `sudo npm i -g sass` but I don't want it installed globally and sudo puts your computer at risk "...by giving untrusted code administrative privileges"
-- so do `npm install sass` -
-- but the global way enables him to use cmds like `sass --watch scss/style.scss css/style.css`
-- he says he never uses source maps so he disables them from being created -
-- have to stop because he is using Live Sass Complier
-
-## Important Links
-
-- [package.json](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
-- [scripts](https://docs.npmjs.com/cli/v8/using-npm/scripts)
-- [npm-run-script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
-- [Using Npm Scripts as a Build Tool](https://deliciousbrains.com/npm-build-script/): This is the best one I found for the basics
-
-```nodejs
-npm init -y
-npm install sass --save-dev
-sass src/scss/style.scss dist/css/style.csss
-npm run scss
-```
-
-That installs SASS as a dev dependency and creates the `dist` folder with the CSS stylesheet, but it does not watch and update your changes.
