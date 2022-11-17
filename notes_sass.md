@@ -1,5 +1,11 @@
 # SASS Notes
 
+> NEED TO WORK ON MIXINS AND FUNCTIONS
+
+Have done: 1. variables, 2. Nesting, 3. Modules and namespacing, 4. Extends, 
+
+Not done yet: 1. Mixins, 2. Functions, 3. Conditionals, 4. @content
+
 Links
 
 - [SASS-LANG](https://sass-lang.com/)
@@ -186,10 +192,28 @@ body {
 - Example: `btn-a`, and `btn-b` can use ALL of `btn-a` stying using `@extend btn-a` - `@extend` inherits the properties of whatever it references
 - Common for things like buttons where you use base styles to style all your buttons, or cards, or other common components
 - use `@extends name` where `name` is the element or class you want to inherit
+- also use `%` to create a name that you can extend
 
 ```scss
-.contact {
-  @extend header;
+%btn {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 8px 20px;
+  margin: 3px;
+
+  &:hover {
+    transform: scale(.98);
+  }
+}
+
+.btn-primary {
+  @extend %btn;
+  @include set-background(lighten($primary-color, 10%));
+}
+
+.btn-secondary {
+  @extend %btn;
+  @include set-background($secondary-color);
 }
 ```
 
@@ -241,6 +265,15 @@ nav ul { @include otherName; }
 - Functions and mixins allow you to make blocks of CSS which you can run wherever you want
 - Functions are similar to mixins but they actually return something
 - Also with functions you don't need `@include`
+- also use `@function` for conditionals
+
+## Conditionals
+
+- Logic via if/else statements - since these are in functions, add them to your utilities file
+- Example is to use them in a mixin with parameters 
+- `@if`, `@else`, and `@else if` and `@return`
+- example: look at the background color and return a text color based on that - 
+- his functions and mixins are not working
 
 ## Operators
 
@@ -249,12 +282,6 @@ nav ul { @include otherName; }
 - Mathematical operators - you don't want to have a value for something and not remember how you got to that value 
 - Using `/ * - +` in your values
 - Example: `100px + 50px`, or for division and mult which you need to wrap in parens like `(500px / 2)` or `(300px * 2)` - I guess `calc()` wasn't a thing back then
-
-## Conditionals
-
-- Logic via if/else statements 
-- Example is to use them in a mixin with parameters 
-- `@if`, `@else`, and `@else if` 
 
 ## Sass Maps
 

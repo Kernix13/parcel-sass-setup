@@ -1,5 +1,7 @@
 @use 'variables';
 @use 'header';
+@use 'utilities';
+@use 'buttons';
 
 *,
 *::before,
@@ -23,11 +25,8 @@ img {
   max-width: 100%;
 }
 
-.container,
-.showcase-container {
-  margin: 0 auto;
-  width: 80%;
-  max-width: 1100px;
+a {
+  text-decoration: none;
 }
 
 .lg-img {
@@ -39,4 +38,9 @@ img {
 
 ::placeholder {
   color: rgba(0, 0, 0, 0.5);
+}
+
+::selection {
+  color: #fff;
+  background-color: variables.$showcaseBgClr;
 }

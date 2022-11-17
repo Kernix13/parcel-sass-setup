@@ -3,6 +3,8 @@
 header {
   background-color: variables.$headerBgClr;
   color: variables.$headerClr;
+  // color: set-text-color(variables.$headerBgClr);
+  // @include set-background(variables.$headerBgClr);
 
   .header-container {
     margin: 0 auto;
@@ -16,13 +18,12 @@ header {
 
   a {
     color: variables.$headerClr;
-    text-decoration: none;
     font-size: 1.125rem;
 
     &:hover {
       text-decoration: underline;
       text-underline-offset: 0.25em;
-      color: variables.$white;
+      color: variables.$orange;
     }
   }
 
@@ -48,12 +49,23 @@ header {
 
 
     .showcase-container {
+      margin: 0 auto;
+      width: 80%;
+      max-width: 1100px;
       display: flex;
       justify-content: center;
       align-items: center;
 
       div {
         padding-right: 2rem;
+      }
+
+      img {
+        width: 50%;
+      }
+
+      h1 {
+        line-height: 1.2;
       }
     }
   }

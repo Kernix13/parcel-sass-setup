@@ -1,0 +1,28 @@
+@use 'variables';
+
+%btn {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 8px 20px;
+  margin: 3px;
+  font-weight: bold;
+  color: #eee;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(.95);
+    color: #fff;
+  }
+}
+
+.btn-primary {
+  @extend %btn;
+  // @include set-background(lighten($primary-color, 30%));
+  background-color: lighten(variables.$headerBgClr, 30%);
+}
+
+.btn-secondary {
+  @extend %btn;
+  // @include set-background($secondary-color);
+  background-color: variables.$darkOrange;
+}
