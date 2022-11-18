@@ -1,33 +1,10 @@
 @use 'variables';
+@use 'base';
 @use 'header';
 @use 'utilities';
 @use 'buttons';
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 
-body {
-  background-color: variables.$bgBody;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 18px;
-}
-
-p {
-  font-size: 1.25rem;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-a {
-  text-decoration: none;
-}
 
 .lg-img {
   display: block;

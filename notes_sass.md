@@ -2,9 +2,9 @@
 
 > NEED TO WORK ON MIXINS AND FUNCTIONS
 
-Have done: 1. variables, 2. Nesting, 3. Modules and namespacing, 4. Extends, 
-
-Not done yet: 1. Mixins, 2. Functions, 3. Conditionals, 4. @content
+- Have done: 1. variables, 2. Nesting, 3. Modules and namespacing, 4. Extends 
+- Not done yet: 1. Mixins, 2. Functions, 3. Conditionals, 4. @content
+- Skip: 1. Operators, 2. Sass Maps
 
 Links
 
@@ -26,8 +26,9 @@ Links
 1. [Mixins](#mixins)
    1. [at content](#at-content)
 1. [Functions](#functions)
+1. [Conditionals and loops](#conditionals and loops)
+1. [Maps](#maps)
 1. [Operators](#operators)
-1. [Conditionals](#conditionals)
 1. [Sass Maps](#sass-maps)
 
 
@@ -63,7 +64,7 @@ Terms:
 | @import   | $varName | @extend  | @each    |
 | @include  | &--class | @use     | @if      |
 | @else     | @forward | @else if | @content |
-| map-get() | #{$name} | -        | -        |
+| map-get() | #{$name} | #each    | -        |
 
 Check out [Sass Guidelines](https://sass-guidelin.es/) for project folder guidelines:
 
@@ -114,6 +115,9 @@ $textClr: #333;
 
 ## Modules
 
+> You don't have to write all your Sass in a single file. You can split it up however you want with the @use rule. This rule loads another Sass file as a module, which means you can refer to its variables, `mixins`, and `functions` in your Sass file with a namespace based on the filename. Using a file will also include the CSS it generates in your compiled output
+
+- Partials and modules are the same thing
 - Modules are for splitting up code into smaller files
 - Organized code should have it's own file, similar to JavaScript
 - Break your large CSS file into different files
@@ -122,7 +126,7 @@ $textClr: #333;
 - For example, cut all your header specific styles, create a file called `_header.scss`, and in the same spot in the old file add `@use 'header';` 
 - There will be no change to the output in the css file
 - **NOTE**: don't add `.scss` - it's not needed plus it throws an error
-- **Abstracts** -> file names: __variables_, _fonts_, _colors_, _mixins_, _components_, _breakpoints_, _fuctions_
+- **Abstracts** -> file names: __variables_, _fonts_, _colors_, _mixins_, _components_, _breakpoints_, _functions_
 - Don't use `@import` and instead use `@use` and `@forward`
 - Everything must ve namespaced to prevent problems with overwriting variables :
 
@@ -186,7 +190,7 @@ body {
 
 ## Inheritance and Extends
 
-> For base styles and then extend them to more specific classes 
+> Using `@extend` lets you share a set of CSS properties from one selector to another...using another feature which goes hand in hand with extend, placeholder classes. A placeholder class is a special type of class that only prints when it is extended, and can help keep your compiled CSS neat and clean
 
 - `@extends` is for nheriting styles from one declaration to another
 - Example: `btn-a`, and `btn-b` can use ALL of `btn-a` stying using `@extend btn-a` - `@extend` inherits the properties of whatever it references
@@ -218,6 +222,8 @@ body {
 ```
 
 ## Mixins
+
+> A mixin lets you make groups of CSS declarations that you want to reuse throughout your site. It helps keep your Sass very DRY. You can even pass in values to make your mixin more flexible
 
 - They are similar to a function in JS
 - Mixins can take parameters like functions - you need to use `@mixin` in conjuction with `@include`
@@ -267,13 +273,61 @@ nav ul { @include otherName; }
 - Also with functions you don't need `@include`
 - also use `@function` for conditionals
 
-## Conditionals
+## Conditionals and loops
 
 - Logic via if/else statements - since these are in functions, add them to your utilities file
 - Example is to use them in a mixin with parameters 
-- `@if`, `@else`, and `@else if` and `@return`
+- `@if`, `@else`, `@else if`, `@return`, `@each`, `@for`, `@while`, `true`, `false`, `null`
 - example: look at the background color and return a text color based on that - 
-- his functions and mixins are not working
+
+```scss
+// Set text color based on background color
+@function set-text-color($color) {
+  @if(lightness($color) > 70) {
+    @return red;
+  }
+
+  @else {
+    @return #fff;
+  }
+}
+
+// Set background & text color
+@mixin set-background($color) {
+  background-color: $color;
+  color: set-text-color($color)
+}
+// neither of these worked
+color: set-text-color(variables.$headerBgClr);
+@include set-background(variables.$headerBgClr);
+```
+
+## Maps 
+
+- In sass you can use loops (like `for in`) and that is where maps come in 
+- maps are like objects with key-value pairs - The keys must be unique, but the values may be duplicated
+- Unlike lists, maps must be written with parentheses around them. 
+- A map with no pairs is written ()
+
+### Lists
+
+- no clue but here is an example to generate a bunch of classes
+
+```scss
+$spaceValues: (1. 2. 3. 4. 5);
+
+@each $space in $spaceValues {
+  .m-#{$space} {
+    margin: #{$space}rem;
+  }
+  .my-#{$space} {
+    margin: #{$space}rem 0;
+  }
+  .mx-#{$space} {
+    margin: 0 #{$space}rem;
+  }
+}
+```
 
 ## Operators
 
@@ -332,3 +386,42 @@ $breakpoints: (
   }
 }
 ```
+
+## Other SASS features
+
+CSS At-rules:
+
+- `@error`: 
+- `@warn`: 
+- `@debug`: 
+- `@at-root`: 
+
+Other:
+
+- Lists: 
+- Built-in modules: 
+- JavaScript API: 
+- Interpolation: `#{}`
+
+Media Queries:
+
+```scss
+// _mobile.scss
+@media(max-width: 700px) {
+  .showcase {
+    height: 400px;
+
+    &-content {
+      text-align: center;
+
+      img {
+        display: none;
+      }
+    }
+  }
+}
+```
+
+# Sass docs
+
+Syntax: https://sass-lang.com/documentation/syntax
