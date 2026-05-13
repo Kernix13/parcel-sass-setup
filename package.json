@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Kernix13/parcel-sass-setup#readme",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.7.0",
+    "@parcel/transformer-sass": "^2.16.4",
     "parcel": "^2.7.0"
   }
 }
